@@ -6,6 +6,7 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 
 import {
   fetchAsyncShowsDetails,
+  removeSelectedShow,
   selectShowDetails,
 } from "../features/movie/movieSlice";
 import { Button } from "@material-ui/core";
@@ -32,6 +33,10 @@ const ShowDetail = () => {
 
   useEffect(() => {
     dispatch(fetchAsyncShowsDetails(id));
+
+    return () => {
+      dispatch(removeSelectedShow());
+    };
   }, [dispatch, id]);
 
   return (

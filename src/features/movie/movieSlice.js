@@ -92,14 +92,11 @@ const movieSlice = createSlice({
   name: "movie",
   initialState,
   reducers: {
-    setMovies: (state, action) => {
-      state.recommend = action.payload.recommend;
-      state.newDisney = action.payload;
-      state.original = action.payload.original;
-      state.trending = action.payload.trending;
+    removeSelectedMovie: (state) => {
+      state.singleDetail = {};
     },
-    getMovies: (state, action) => {
-      state.newMovies = action.payload;
+    removeSelectedShow: (state) => {
+      state.showDetails = {};
     },
   },
   extraReducers: {
@@ -138,7 +135,7 @@ const movieSlice = createSlice({
   },
 });
 
-export const { setMovies, getMovies } = movieSlice.actions;
+export const { removeSelectedMovie, removeSelectedShow } = movieSlice.actions;
 
 export const selectTrending = (state) => state.movie.trending;
 export const selectPopular = (state) => state.movie.popular;

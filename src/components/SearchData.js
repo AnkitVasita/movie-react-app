@@ -58,7 +58,7 @@ const SearchData = () => {
     <Container>
       <ThemeProvider theme={darkTheme}>
         <TextField
-          style={{ flex: 2, width: 270 }}
+          style={{ flex: 2, width: 250 }}
           className="searchBox"
           label="Search"
           variant="filled"
@@ -75,7 +75,7 @@ const SearchData = () => {
           value={type}
           indicatorColor="primary"
           textColor="primary"
-          onChange={(event, newValue) => {
+          onChange={(newValue) => {
             setType(newValue);
             setPage(1);
           }}

@@ -6,6 +6,7 @@ import "./Detail.css";
 
 import {
   fetchAsyncDetails,
+  removeSelectedMovie,
   selectSingleDetail,
 } from "../features/movie/movieSlice";
 import { Button } from "@material-ui/core";
@@ -32,39 +33,48 @@ const MovieDetail = () => {
 
   useEffect(() => {
     dispatch(fetchAsyncDetails(id));
+    return () => {
+      dispatch(removeSelectedMovie());
+    };
   }, [dispatch, id]);
 
   return (
     <div className="details">
-      <img
-        src={`${img_300}${
-          detailData.poster_path || detailData.backdrop_path || unavailable
-        }`}
-        alt={detailData.title}
-      />
-      <div className="details-left">
-        <h2>{detailData.title}</h2>
-        <p>{detailData.overview}</p>
-        <p>
-          <span>Rating</span> {detailData.vote_average}
-        </p>
-        <p>
-          {" "}
-          <span>Released</span> {detailData.release_date}
-        </p>
-        <p>
-          <span>Populaity</span> {detailData.popularity}
-        </p>
-        <Button
-          variant="contained"
-          startIcon={<YouTubeIcon />}
-          color="secondary"
-          target="__blank"
-          href={`https://www.youtube.com/watch?v=${video}`}
-        >
-          Watch the Trailer
-        </Button>
-      </div>
+      {Object.keys(detailData).length === 0 ? (
+        <div>loading...</div>
+      ) : (
+        <>
+          <img
+            src={`${img_300}${
+              detailData.poster_path || detailData.backdrop_path || unavailable
+            }`}
+            alt={detailData.title}
+          />
+          <div className="details-left">
+            <h2>{detailData.title}</h2>
+            <p>{detailData.overview}</p>
+            <p>
+              <span>Rating</span> {detailData.vote_average}
+            </p>
+            <p>
+              {" "}
+              <span>Released</span> {detailData.release_date}
+            </p>
+            <p>
+              <span>Populaity</span> {detailData.popularity}
+            </p>
+            <Button
+              variant="contained"
+              startIcon={<YouTubeIcon />}
+              color="secondary"
+              target="__blank"
+              href={`https://www.youtube.com/watch?v=${video}`}
+            >
+              Watch the Trailer
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
