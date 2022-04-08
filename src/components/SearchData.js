@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import axios from "axios";
+import { makeStyles } from "@material-ui/styles";
 
 const SearchData = () => {
   const [type, setType] = useState(0);
@@ -30,6 +31,15 @@ const SearchData = () => {
       },
     },
   });
+
+  const useStyles = makeStyles((theme) => ({
+    textField: {
+      flex: 1,
+      width: "73%",
+    },
+  }));
+
+  const classes = useStyles();
 
   const fetchSearch = async () => {
     try {
@@ -58,8 +68,8 @@ const SearchData = () => {
     <Container>
       <ThemeProvider theme={darkTheme}>
         <TextField
-          style={{ flex: 2, width: 250 }}
-          className="searchBox"
+          style={{ flex: 1 }}
+          className={classes.textField}
           label="Search"
           variant="filled"
           onChange={(e) => setSearchText(e.target.value)}
@@ -75,7 +85,7 @@ const SearchData = () => {
           value={type}
           indicatorColor="primary"
           textColor="primary"
-          onChange={(newValue) => {
+          onChange={(event, newValue) => {
             setType(newValue);
             setPage(1);
           }}
